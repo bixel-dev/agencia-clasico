@@ -1,0 +1,96 @@
+---
+const taglines = [
+  'La simplicidad es compleja',
+  'El diseño es un proceso',
+  'La estética es una decisión',
+  'El estilo lo es todo',
+];
+---
+
+<section
+  id="hero"
+  class="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-brand-dark select-none"
+>
+  <!-- Noise texture overlay -->
+  <div
+    class="absolute inset-0 opacity-[0.04] pointer-events-none"
+    style="background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E\"); background-size: 300px 300px;"
+  ></div>
+
+  <!-- Hero content -->
+  <div class="relative w-full text-center px-6">
+
+    <!-- Taglines wrapper — fixed height to prevent layout shift -->
+    <div class="relative" style="height: clamp(3.5rem, 11vw, 10.5rem);">
+      {taglines.map((tagline, i) => (
+        <h1
+          class="tagline absolute inset-0 flex items-center justify-center
+                 font-heading font-light text-white leading-none opacity-0"
+          style="font-size: clamp(2rem, 8vw, 8.5rem);"
+          data-index={i}
+        >
+          {tagline}
+        </h1>
+      ))}
+    </div>
+
+    <!-- Subtitle -->
+    <p
+      id="hero-subtitle"
+      class="mt-8 font-accent text-brand-muted tracking-[0.45em] uppercase opacity-0"
+      style="font-size: 10px;"
+    >
+      Agencia Creativa &mdash; Santiago, Chile
+    </p>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div id="scroll-indicator" class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-0">
+    <span class="font-accent text-brand-muted tracking-[0.3em] uppercase" style="font-size: 9px;">Scroll</span>
+    <div id="scroll-line" class="w-px h-12 bg-brand-muted origin-top scale-y-0"></div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const taglines  = Array.from(document.querySelectorAll<HTMLElement>('.tagline'));
+  const subtitle  = document.getElementById('hero-subtitle')!;
+  const indicator = document.getElementById('scroll-indicator')!;
+  const scrollLine = document.getElementById('scroll-line')!;
+  let current = 0;
+
+  // Entrance sequence
+  gsap.timeline({ delay: 0.4 })
+    .to(taglines[0],  { opacity: 1, duration: 0.9, ease: 'power2.out' })
+    .to(subtitle,     { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.5')
+    .to(indicator,    { opacity: 1, duration: 0.5 }, '-=0.3')
+    .to(scrollLine,   { scaleY: 1, duration: 0.9, ease: 'power2.out' }, '-=0.3')
+    .to(scrollLine,   {
+      scaleY: 0,
+      transformOrigin: 'bottom',
+      duration: 0.6,
+      ease: 'power2.in',
+      repeat: -1,
+      yoyo: true,
+      repeatDelay: 0.7,
+    });
+
+  // Tagline rotation
+  function nextTagline() {
+    const prev = taglines[current];
+    current = (current + 1) % taglines.length;
+    const next = taglines[current];
+
+    gsap.timeline()
+      .to(prev,  { opacity: 0, y: -18, duration: 0.5, ease: 'power2.in' })
+      .set(prev, { y: 18 })
+      .fromTo(next,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0,  duration: 0.6, ease: 'power2.out' },
+        '-=0.1',
+      );
+  }
+
+  setTimeout(() => setInterval(nextTagline, 3800), 3200);
+</script>

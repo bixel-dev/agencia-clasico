@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #111111;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-block px-8 py-3 border border-white text-[10px] font-accent tracking-[0.25em] uppercase
+           transition-all duration-300 ease-out hover:bg-white hover:text-brand-dark;
+  }
+
+  .btn-dark {
+    @apply inline-block px-8 py-3 border border-brand-dark text-[10px] font-accent tracking-[0.25em] uppercase text-brand-dark
+           transition-all duration-300 ease-out hover:bg-brand-dark hover:text-white;
+  }
+
+  .label-tag {
+    @apply font-accent text-[9px] tracking-[0.3em] uppercase text-brand-muted;
+  }
+}

@@ -1,0 +1,76 @@
+---
+const works = [
+  { id: '01', title: 'Identidad Korvul',   category: 'Branding',    bg: '#161616' },
+  { id: '02', title: 'Campaña Verano',     category: 'Publicidad',  bg: '#0f0f0f' },
+  { id: '03', title: 'Sitio Web Onyx',     category: 'Web Design',  bg: '#1a1a1a' },
+  { id: '04', title: 'Editorial Forma',    category: 'Editorial',   bg: '#131313' },
+  { id: '05', title: 'Marca Arco',         category: 'Identidad',   bg: '#1c1c1c' },
+  { id: '06', title: 'Packaging Dune',     category: 'Packaging',   bg: '#111111' },
+];
+---
+
+<section id="trabajos" class="bg-brand-light py-32 md:py-40">
+  <div class="max-w-6xl mx-auto px-8 md:px-14">
+
+    <!-- Header -->
+    <div class="works-header flex items-end justify-between mb-14">
+      <div>
+        <p class="label-tag mb-5">Portafolio</p>
+        <h2 class="font-heading text-brand-dark font-light" style="font-size: clamp(1.8rem, 3.5vw, 3rem);">
+          Trabajos seleccionados
+        </h2>
+      </div>
+      <a href="#contacto" class="hidden md:inline-block btn-dark">Nuevo proyecto</a>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-brand-dark/10">
+      {works.map((w) => (
+        <div
+          class="work-item group relative overflow-hidden cursor-pointer"
+          style="aspect-ratio: 4 / 3;"
+        >
+          <!-- Dark placeholder background with large number -->
+          <div
+            class="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105 flex items-center justify-center"
+            style={`background-color: ${w.bg};`}
+          >
+            <span
+              class="font-heading font-light text-white/10 select-none"
+              style="font-size: clamp(5rem, 12vw, 10rem);"
+            >{w.id}</span>
+          </div>
+
+          <!-- Hover overlay -->
+          <div class="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 transition-opacity duration-350 flex flex-col justify-end p-8">
+            <span class="label-tag block mb-2">{w.category}</span>
+            <h3 class="font-heading text-white text-xl font-light">{w.title}</h3>
+          </div>
+
+          <!-- Default label -->
+          <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 group-hover:opacity-0">
+            <span class="label-tag block mb-1">{w.category}</span>
+            <h3 class="font-heading text-white text-base font-light">{w.title}</h3>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.works-header', {
+    y: 20, opacity: 0, duration: 0.6,
+    scrollTrigger: { trigger: '#trabajos', start: 'top 72%' },
+  });
+
+  gsap.from('.work-item', {
+    y: 40, opacity: 0, stagger: 0.08, duration: 0.7, ease: 'power2.out',
+    scrollTrigger: { trigger: '.work-item', start: 'top 85%' },
+  });
+</script>

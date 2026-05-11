@@ -1,0 +1,71 @@
+---
+const testimonials = [
+  {
+    quote: 'clasi.co transformó completamente nuestra presencia de marca. El proceso fue claro, colaborativo y el resultado superó todas nuestras expectativas.',
+    author: 'Valentina Rojo',
+    role: 'CEO, Forma Studio',
+    initial: 'V',
+  },
+  {
+    quote: 'Trabajar con este equipo fue una de las mejores decisiones que tomamos. Entienden el diseño como una herramienta estratégica, no solo estética.',
+    author: 'Tomás Ibáñez',
+    role: 'Director, Onyx Group',
+    initial: 'T',
+  },
+  {
+    quote: 'La campaña que desarrollaron generó resultados reales y medibles. Creatividad y estrategia perfectamente equilibradas.',
+    author: 'Camila Fuentes',
+    role: 'Marketing Manager, Arco Retail',
+    initial: 'C',
+  },
+];
+---
+
+<section id="clientes" class="bg-[#0d0d0d] py-32 md:py-40">
+  <div class="max-w-6xl mx-auto px-8 md:px-14">
+
+    <!-- Header -->
+    <div class="testimonials-header mb-16">
+      <p class="label-tag mb-5">Clientes</p>
+      <h2 class="font-heading text-white font-light" style="font-size: clamp(1.8rem, 3.5vw, 3rem);">
+        Lo que dicen de nosotros
+      </h2>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5">
+      {testimonials.map((t) => (
+        <div class="testimonial-card bg-[#0d0d0d] p-10">
+          <div class="font-heading text-white/8 text-6xl font-light leading-none mb-6 select-none">&ldquo;</div>
+          <p class="text-brand-muted text-sm leading-relaxed mb-10 font-sans">{t.quote}</p>
+          <div class="flex items-center gap-4">
+            <div class="w-9 h-9 rounded-full bg-brand-gray/25 flex items-center justify-center shrink-0">
+              <span class="font-heading text-white text-sm">{t.initial}</span>
+            </div>
+            <div>
+              <p class="font-heading text-white text-sm font-medium">{t.author}</p>
+              <p class="label-tag mt-0.5">{t.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.testimonials-header', {
+    y: 20, opacity: 0, duration: 0.6,
+    scrollTrigger: { trigger: '#clientes', start: 'top 72%' },
+  });
+
+  gsap.from('.testimonial-card', {
+    y: 30, opacity: 0, stagger: 0.12, duration: 0.65,
+    scrollTrigger: { trigger: '.testimonial-card', start: 'top 82%' },
+  });
+</script>

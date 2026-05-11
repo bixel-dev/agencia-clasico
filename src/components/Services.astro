@@ -1,0 +1,79 @@
+---
+const services = [
+  {
+    num: '01',
+    title: 'Identidad de Marca',
+    desc: 'Desarrollamos sistemas de identidad visual coherentes y memorables que comunican la esencia de tu empresa con precisión y distinción.',
+    tags: ['Branding', 'Logotipo', 'Manual de Marca'],
+  },
+  {
+    num: '02',
+    title: 'Diseño Editorial',
+    desc: 'Creamos piezas editoriales — catálogos, revistas y reportes — con diseño tipográfico de alto nivel y una narrativa visual impecable.',
+    tags: ['Print', 'Tipografía', 'Diagramación'],
+  },
+  {
+    num: '03',
+    title: 'Diseño Web',
+    desc: 'Diseñamos y desarrollamos sitios que combinan experiencia de usuario excepcional con estética contemporánea y rendimiento óptimo.',
+    tags: ['UX/UI', 'Desarrollo', 'SEO'],
+  },
+  {
+    num: '04',
+    title: 'Campaña Publicitaria',
+    desc: 'Conceptualizamos y producimos campañas que generan impacto real — desde la estrategia hasta la ejecución en todos los medios.',
+    tags: ['Estrategia', 'Creatividad', 'Producción'],
+  },
+];
+---
+
+<section id="servicios" class="bg-brand-dark py-32 md:py-40">
+  <div class="max-w-6xl mx-auto px-8 md:px-14">
+
+    <!-- Header -->
+    <div class="services-header mb-16">
+      <p class="label-tag mb-5">Lo que hacemos</p>
+      <h2 class="font-heading text-white font-light" style="font-size: clamp(1.8rem, 3.5vw, 3rem);">
+        Nuestros servicios
+      </h2>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5">
+      {services.map((s) => (
+        <div class="service-card group bg-brand-dark p-10 hover:bg-[#1a1a1a] transition-colors duration-500">
+          <div class="flex items-start justify-between mb-8">
+            <span class="label-tag">{s.num}</span>
+            <div class="w-5 h-px bg-brand-muted mt-1.5 transition-all duration-400 group-hover:w-10 group-hover:bg-white"></div>
+          </div>
+          <h3 class="font-heading text-white text-xl font-light mb-4">{s.title}</h3>
+          <p class="text-brand-muted text-sm leading-relaxed mb-8 font-sans">{s.desc}</p>
+          <div class="flex flex-wrap gap-2">
+            {s.tags.map(tag => (
+              <span class="font-accent text-[9px] tracking-[0.2em] uppercase text-brand-muted border border-white/10 px-3 py-1">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.services-header', {
+    y: 20, opacity: 0, duration: 0.6,
+    scrollTrigger: { trigger: '#servicios', start: 'top 72%' },
+  });
+
+  gsap.from('.service-card', {
+    y: 30, opacity: 0, stagger: 0.1, duration: 0.65, ease: 'power2.out',
+    scrollTrigger: { trigger: '.service-card', start: 'top 82%' },
+  });
+</script>
